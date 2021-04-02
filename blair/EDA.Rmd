@@ -29,7 +29,7 @@ forest <- read.csv('forest-cover-type-prediction/train.csv')
 
 forest <- forest %>%  mutate(Cover = as.factor(Cover_Type))
 
-#describe(forest)
+describe(forest)
 ```
 
 
@@ -121,9 +121,9 @@ forest %>%
 ```{r}
 forest %>% 
   mutate(Cover = as.factor(Cover_Type)) %>%
-  ggplot(aes(x=Cover, y=Hillshade_Noon)) +
+  ggplot(aes(x=Slope, y=Aspect)) +
   geom_boxplot(alpha=.1)+
-  #facet_grid(.~forest$Cover) +
+  facet_grid(forest$all_wilderness_area~forest$Cover) +
   ggtitle('Fig 7:  Aspect vs Slope per Cover category')
 ```
 
@@ -207,6 +207,87 @@ forest %>%
   ggtitle('Fig x:  Soil Type seems to be a predictor of Cover')
 ```
 
+
+```{r}
+forest %>% 
+  ggplot(aes(y=Elevation, x=all_soil_type)) +
+  geom_jitter(alpha=.1) +
+  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+```{r}
+
+forest %>% 
+  mutate(shade = (Hillshade_9am + Hillshade_Noon + Hillshade_3pm)) %>%
+  ggplot(aes(y=Elevation, x=shade)) +
+  geom_jitter(alpha=.1) +
+  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+```{r}
+forest %>% 
+  mutate(line_hydro = sqrt(Horizontal_Distance_To_Hydrology**2 + Horizontal_Distance_To_Hydrology**2)) %>%
+  ggplot(aes(y=Elevation, x=line_hydro)) +
+  geom_jitter(alpha=.1) +
+  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+```{r}
+forest %>% 
+  ggplot(aes(y=Slope, x=Aspect)) +
+  geom_jitter(alpha=.1) +
+  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+```{r}
+forest %>% 
+  ggplot(aes(y=Elevation, x=Aspect, color=as.factor(wilderness_area))) +
+  geom_jitter(alpha=.1) +
+  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+
+
+```{r}
+forest %>% 
+  ggplot(aes(y=soil_type, x=1, color=as.factor(all_wilderness_area))) +
+  geom_jitter(alpha=.1) +
+  facet_grid(~forest$Cover) +
+  ggtitle('Fig x:  ')
+```
+
+
+```{r}
+forest %>% 
+  ggplot(aes(x=all_wilderness_area, y=Elevation, color=Cover)) +
+  geom_jitter(alpha=.25) +
+#  facet_grid(.~forest$Cover) +
+  ggtitle('Fig x:  High overlap of different cover types 
+          in each area across elevations')
+```
+
+
+```{r}
+forest %>% 
+  mutate(shade = Hillshade_9am + Hillshade_Noon + Hillshade_3pm) %>%
+  ggplot(aes(x=Cover, y=shade, fill=Cover)) +
+  geom_boxplot() +
+#  facet_grid(.~forest$all_wilderness_area) +
+  ggtitle('Fig x:  Total shade during day')
+```
+
+
+
 # Modeling
 
 ```{r}
@@ -215,6 +296,6 @@ forest_tmp <- forest %>%
   mutate(wildarea = as.factor(all_wilderness_area)) %>%
   mutate(soiltype = as.factor(all_soil_type))
 
-mod <- multinom(data=forest_tmp, Cover~Elevation + wildarea)
+mod <- multinom(data=forest_tmp, Cover ~ Elevation + wildarea)# adding this breaks it + soiltype)
 summary(mod)
 ```
