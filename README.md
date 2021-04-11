@@ -69,8 +69,8 @@ The full analysis is described in the final report notebook and presentation.
 | Random Forest | 0.868 | 12 sec | - |
 | <span style="font-size:1.5em; color:green;">Extra Trees</span> | <span style="font-size:1.5em; color:green; ">0.910</span> | <span style="font-size:1.5em; color:green; ">15 sec</span> | <span style="font-size:1.5em; color:green; ">trees=600</span> |
 | XGBoost | 0.865 | 193 sec | - |
-| LightGBM | - | - | - |
-| CatBoost | - | - | - |
+| LightGBM | 0.897 | 72 sec | boosting_type='gbdt', trees=200 |
+| CatBoost | 0.876 | 96 sec | - |
 | Neural Network | 0.865 | 192 sec | layers=6 |
 | Hybrid | 0.885 | 79 sec | - |
 
