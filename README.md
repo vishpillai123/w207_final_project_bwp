@@ -70,9 +70,9 @@ After thorough EDA, we decided to apply several transformations to the data to h
 
 With the transformed data, we analyzed the characteristics of several different machine learning models for this type of classification problem.
 
-After some iterations to tune the features and hyperparameter, we conducted a final comparison, shown below.  The **Extra Trees Classifier** achieved the best performance in terms of accuracy and execution time.
+After some iterations to tune the features and hyperparameter, we conducted a final comparison, shown below.  The **ExtraTrees Classifier** achieved the best performance in terms of accuracy and execution time.
 
-We also experimented with a hybrid model, using the Voting Classifier, which takes the output from 2 or more models and determines the best prediction for each sample from across the input models.  *Extra Trees* alone still outperformed the hybrid model.
+We also experimented with a hybrid model, using the Voting Classifier, which takes the output from 2 or more models and determines the best prediction for each sample from across the input models.  The Voting Classifier with 8 ExtraTrees models increased the accuracy by 0.2%, but took 9 times longer to train and predict.
 
 The full analysis is described in the final report notebook and presentation.
 
@@ -82,8 +82,8 @@ The full analysis is described in the final report notebook and presentation.
 | KNN | 0.811 | - | k=1 |
 | Decision Tree | 0.771 | - | trees=19 |
 | Random Forest | 0.868 | 12 sec | - |
-| ExtraTrees | 0.911 | 5 sec | random_state=1189 |
-| <span style="font-size:1.5em; color:green;">ExtraTrees Voting</span> | <span style="font-size:1.5em; color:green; ">0.913</span> | <span style="font-size:1.5em; color:green; ">45 sec</span> | trees=100, random_state=[1189,883,2153,5568,2077,769,2223,2675]</span> |
+| ***ExtraTrees*** | 0.911 | ***5 sec*** | random_state=1189 |
+| **ExtraTrees Voting** | **0.913** | 45 sec | trees=100, random_state=[1189,883,2153,5568,2077,769,2223,2675]</span> |
 | XGBoost | 0.865 | 193 sec | - |
 | LightGBM | 0.897 | 72 sec | boosting_type='gbdt', trees=200 |
 | CatBoost | 0.876 | 96 sec | - |
