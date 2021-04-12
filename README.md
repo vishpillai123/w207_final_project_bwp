@@ -1,5 +1,8 @@
 # W207 Final Project
 
+
+## Forest Cover Type Prediction 
+
 **Berkeley MIDS Program**
 
 Team:  Blair Witch Project
