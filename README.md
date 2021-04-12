@@ -48,7 +48,22 @@ The 7 forest cover types:
 6. Douglas-fir
 7. Krummholz
 
+## Data
 
+- Elevation - Elevation in meters
+- Aspect - Aspect in degrees azimuth
+- Slope - Slope in degrees
+- Horizontal_Distance_To_Hydrology - Horz Dist to nearest surface water features
+- Vertical_Distance_To_Hydrology - Vert Dist to nearest surface water features
+- Horizontal_Distance_To_Roadways - Horz Dist to nearest roadway
+- Hillshade_9am (0 to 255 index) - Hillshade index at 9am, summer solstice
+- Hillshade_Noon (0 to 255 index) - Hillshade index at noon, summer solstice
+- Hillshade_3pm (0 to 255 index) - Hillshade index at 3pm, summer solstice
+- Horizontal_Distance_To_Fire_Points - Horz Dist to nearest wildfire ignition points
+- Wilderness_Area (4 binary columns, 0 = absence or 1 = presence) - Wilderness area designation
+- Soil_Type (40 binary columns, 0 = absence or 1 = presence) - Soil Type designation
+- Cover_Type (7 types, integers 1 to 7) - Forest Cover Type designation
+    
 ## Summary
 
 After thorough EDA, we decided to apply several transformations to the data to highlight key differences between the cover types across the explanatory variables.
@@ -67,15 +82,9 @@ The full analysis is described in the final report notebook and presentation.
 | KNN | 0.811 | - | k=1 |
 | Decision Tree | 0.771 | - | trees=19 |
 | Random Forest | 0.868 | 12 sec | - |
-| <span style="font-size:1.5em; color:green;">Extra Trees</span> | <span style="font-size:1.5em; color:green; ">0.910</span> | <span style="font-size:1.5em; color:green; ">15 sec</span> | <span style="font-size:1.5em; color:green; ">trees=600</span> |
+| ExtraTrees | 0.911 | 5 sec | random_state=1189 |
+| <span style="font-size:1.5em; color:green;">ExtraTrees Voting</span> | <span style="font-size:1.5em; color:green; ">0.913</span> | <span style="font-size:1.5em; color:green; ">45 sec</span> | trees=100, random_state=[1189,883,2153,5568,2077,769,2223,2675]</span> |
 | XGBoost | 0.865 | 193 sec | - |
 | LightGBM | 0.897 | 72 sec | boosting_type='gbdt', trees=200 |
 | CatBoost | 0.876 | 96 sec | - |
 | Neural Network | 0.865 | 192 sec | layers=6 |
-| Hybrid | 0.885 | 79 sec | - |
-
-
-Hybrid model (Voting Classifier):
-- ExtraTrees
-- HistGradBoost
-- RandomForest
